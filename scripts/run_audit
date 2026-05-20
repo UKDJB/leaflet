@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Regenerate GEDCOM maintenance CSV for the Brown family tree.
+#
+# Usage:
+#   ./scripts/run_audit
+#
+# Override defaults with environment variables if needed:
+#   GEDCOM=path/to/tree.ged OUTPUT=path/out.csv ROOT_INDI=@I...@ ./scripts/run_audit
+
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+GEDCOM="${GEDCOM:-data/Brown Family Tree.ged}"
+OUTPUT="${OUTPUT:-data/Brown Family Tree-maintenance.csv}"
+ROOT_INDI="${ROOT_INDI:-@I32269883966@}"
+ENCODING="${ENCODING:-utf-8}"
+
+if [[ ! -f "$GEDCOM" ]]; then
+  echo "error: GEDCOM not found: $GEDCOM" >&2
+  exit 1
+fi
+
+echo "GEDCOM:  $GEDCOM"
+echo "Output:  $OUTPUT"
+echo "Root:    $ROOT_INDI"
+echo
+
+python3 -m leaflet \
+  --gedcom "$GEDCOM" \
+  --encoding "$ENCODING" \
+  --audit-csv \
+  --root "$ROOT_INDI" \
+  -o "$OUTPUT"
+
+echo
+echo "Done. Open: $OUTPUT"

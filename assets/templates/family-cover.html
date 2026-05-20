@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>__PAGE_TITLE__</title>
+  __EXTRA_HEAD__
+</head>
+<body class="fgs-page">
+  <!--
+    A4 family group sheet (sketch layout). Placeholders filled by leaflet.cover_page.
+    Markup: div + semantic classes only (see documents/ui-structure-prompt-standard.md).
+    Rebuild CSS: npm run build:css
+  -->
+  <div class="fgs-sheet">
+    <div class="fgs-header">
+      <div class="fgs-header__label">Family group sheet</div>
+      <div class="fgs-header__title">__HEADER_TITLE__</div>
+      <div class="fgs-header__rule"></div>
+    </div>
+
+    <div class="fgs-main">
+      <div class="fgs-couple-section">
+        <div class="fgs-upper">
+          <div class="fgs-columns">
+            <div class="fgs-branch fgs-branch--father">
+              __P1_GP_COUPLE__
+              <div class="fgs-link-v" aria-hidden="true"></div>
+              __P1_PARENT__
+            </div>
+            <div class="fgs-branch fgs-branch--mother">
+              __P2_GP_COUPLE__
+              <div class="fgs-link-v" aria-hidden="true"></div>
+              __P2_PARENT__
+            </div>
+          </div>
+        </div>
+
+        <div class="fgs-parent-link" aria-hidden="true">
+          <div class="fgs-parent-link__cols">
+            <div class="fgs-parent-link__col"><div class="fgs-link-v"></div></div>
+            <div class="fgs-parent-link__col"><div class="fgs-link-v"></div></div>
+          </div>
+          <div class="fgs-parent-link__h"></div>
+        </div>
+      </div>
+
+      <div class="fgs-children-block">
+        <div class="fgs-children-rail">
+          __CHILD_SLOTS__
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

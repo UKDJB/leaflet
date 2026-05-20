@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import "./fgs/base.css";
+@import "./fgs/layout.css";
+@import "./fgs/components.css";
+
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+@layer base {
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

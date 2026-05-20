@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leaflet — Family group sheets</title>
+  <link rel="stylesheet" href="/app.css" />
+</head>
+<body class="leaflet-app">
+  <div class="leaflet-app__shell">
+    <aside class="leaflet-sidebar">
+      <div class="leaflet-sidebar__head">
+        <h1 class="leaflet-sidebar__title">Leaflet</h1>
+        <p class="leaflet-sidebar__hint">Choose a family, then print the sheet.</p>
+      </div>
+      <label class="leaflet-search">
+        <span class="leaflet-search__label">Search</span>
+        <input
+          class="leaflet-search__input"
+          type="search"
+          id="family-search"
+          placeholder="Year, surname, or family id…"
+          autocomplete="off"
+        />
+      </label>
+      <div class="leaflet-sidebar__meta" id="family-meta" aria-live="polite"></div>
+      <ul class="leaflet-family-list" id="family-list" role="listbox" aria-label="Families"></ul>
+    </aside>
+
+    <main class="leaflet-main">
+      <div class="leaflet-toolbar">
+        <p class="leaflet-toolbar__selection" id="selection-label">No family selected</p>
+        <button class="leaflet-btn leaflet-btn--primary" type="button" id="print-btn" disabled>
+          Print family sheet
+        </button>
+      </div>
+      <div class="leaflet-preview">
+        <iframe
+          class="leaflet-preview__frame"
+          id="sheet-frame"
+          title="Family group sheet preview"
+          src="about:blank"
+        ></iframe>
+        <p class="leaflet-preview__empty" id="preview-empty">Select a family from the list to preview.</p>
+      </div>
+    </main>
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

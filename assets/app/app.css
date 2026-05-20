@@ -1,0 +1,235 @@
+/* Leaflet SPA — family picker shell (screen only; sheet prints from iframe). */
+
+.leaflet-app {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: ui-sans, "Helvetica Neue", Arial, sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #ececec;
+}
+
+.leaflet-app__shell {
+  display: grid;
+  grid-template-columns: minmax(16rem, 22rem) 1fr;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.leaflet-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+  padding: 1rem 0.85rem 1rem 1rem;
+  border-right: 1px solid #c8c8c8;
+  background: #fafafa;
+}
+
+.leaflet-sidebar__head,
+.leaflet-search,
+.leaflet-sidebar__meta {
+  flex-shrink: 0;
+}
+
+.leaflet-sidebar__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.leaflet-sidebar__hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: #5c5c5c;
+}
+
+.leaflet-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.leaflet-search__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5c5c5c;
+}
+
+.leaflet-search__input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid #b8b8b8;
+  border-radius: 0.4rem;
+  font: inherit;
+  background: #fff;
+}
+
+.leaflet-search__input:focus {
+  outline: 2px solid #6a8fad;
+  outline-offset: 1px;
+}
+
+.leaflet-sidebar__meta {
+  font-size: 0.75rem;
+  color: #5c5c5c;
+}
+
+.leaflet-family-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0 0.15rem 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.leaflet-family-item {
+  margin: 0;
+}
+
+.leaflet-family-item__star {
+  margin-left: 0.15em;
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.leaflet-family-item__btn {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.45rem 0.5rem;
+  border: none;
+  border-radius: 0.35rem;
+  font: inherit;
+  line-height: 1.35;
+  text-align: left;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.leaflet-family-item__btn:hover {
+  background: #e8eef3;
+}
+
+.leaflet-family-item__btn.is-selected {
+  font-weight: 600;
+  background: #d4e4f2;
+}
+
+.leaflet-family-item__btn:focus-visible {
+  outline: 2px solid #6a8fad;
+  outline-offset: 1px;
+}
+
+.leaflet-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.leaflet-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #c8c8c8;
+  background: #f5f5f5;
+}
+
+.leaflet-toolbar__selection {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.leaflet-btn {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #b8b8b8;
+  border-radius: 0.4rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fff;
+}
+
+.leaflet-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.leaflet-btn--primary {
+  border-color: #4a6a85;
+  color: #fff;
+  background: #4a6a85;
+}
+
+.leaflet-btn--primary:not(:disabled):hover {
+  background: #3d5a72;
+}
+
+.leaflet-preview {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 1rem;
+  background: #d8d8d8;
+}
+
+.leaflet-preview__frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: calc(100vh - 5.5rem);
+  border: none;
+  background: #f5f5f5;
+}
+
+.leaflet-preview__frame.is-loaded {
+  box-shadow: 0 2px 12px rgb(0 0 0 / 12%);
+}
+
+.leaflet-preview__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: #5c5c5c;
+  pointer-events: none;
+}
+
+.leaflet-preview__empty.is-hidden {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .leaflet-app__shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(12rem, 38vh) 1fr;
+  }
+
+  .leaflet-sidebar {
+    min-height: 0;
+    border-right: none;
+    border-bottom: 1px solid #c8c8c8;
+  }
+}

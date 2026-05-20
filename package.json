@@ -1,0 +1,13 @@
+{
+  "name": "leaflet",
+  "private": true,
+  "description": "GEDCOM family outputs; Tailwind builds print CSS for cover templates.",
+  "scripts": {
+    "build:css": "npx @tailwindcss/cli -i ./assets/css/cover-entry.css -o ./assets/css/cover.bundle.css --content './assets/templates/**/*.html' './assets/css/fgs/**/*.css' './leaflet/cover_page.py'",
+    "watch:css": "npx @tailwindcss/cli -i ./assets/css/cover-entry.css -o ./assets/css/cover.bundle.css --content './assets/templates/**/*.html' './assets/css/fgs/**/*.css' './leaflet/cover_page.py' --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "tailwindcss": "^4.1.11"
+  }
+}

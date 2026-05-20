@@ -147,6 +147,9 @@ activemq-data/
 # SageMath parsed files
 *.sage.py
 
+# Node (Tailwind build for cover templates)
+node_modules/
+
 # Environments
 .env
 .envrc
@@ -216,3 +219,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Custom filters
+*.csv
+*.ged

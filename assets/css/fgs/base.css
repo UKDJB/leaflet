@@ -1,0 +1,19 @@
+/* Family group sheet — theme tokens (presentation only). */
+
+@theme {
+  --fgs-font-body: ui-sans, "Helvetica Neue", Arial, sans-serif;
+  --fgs-radius: 0.65rem;
+  --fgs-columns-gap: 2rem;
+  --fgs-vert-gap: 1.25rem;
+  --fgs-pill-card-width: 20rem;
+  --fgs-pill-avatar: 2.5rem;
+  --fgs-ink: #1a1a1a;
+  --fgs-muted: #5c5c5c;
+  --fgs-line: #8a8a8a;
+  --fgs-pill-bg: #ffffff;
+  --fgs-pill-border: #b8b8b8;
+  --fgs-sex-m: #c6d9e3;
+  --fgs-sex-f: #ebbda9;
+  --fgs-sex-ink: #2a2a2a;
+  --fgs-sheet-bg: #f5f5f5;
+}

@@ -1,0 +1,268 @@
+/* Family group sheet — pill cards, header type, sex badge. */
+
+.fgs-page {
+  margin: 0;
+  font-family: var(--fgs-font-body);
+  font-size: 12pt;
+  color: var(--fgs-ink);
+  background: var(--fgs-sheet-bg);
+}
+
+.fgs-header__label {
+  font-family: var(--fgs-font-body);
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.fgs-header__title {
+  font-family: var(--fgs-font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.fgs-header__xref {
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--fgs-muted);
+}
+
+/* Shared card shape (pills + grandparent blocks) */
+.fgs-pill {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--fgs-pill-border);
+  border-radius: var(--fgs-radius);
+  background: var(--fgs-pill-bg);
+}
+
+/* Grandparents & children — same size */
+.fgs-pill--std {
+  gap: 0.5rem;
+  padding: 0.35rem 0.65rem 0.35rem 0.35rem;
+}
+
+.fgs-pill--std .fgs-pill__sex {
+  width: 2rem;
+  height: 2rem;
+}
+
+.fgs-pill--std .fgs-pill__name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.fgs-pill--std .fgs-pill__dates {
+  margin-top: 0.1rem;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: var(--fgs-muted);
+}
+
+/* Parents & children — same larger card (single-line names) */
+.fgs-pill--parent {
+  box-sizing: border-box;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(var(--fgs-pill-avatar) + 1rem);
+  padding: 0.55rem 0.9rem 0.55rem 0.5rem;
+}
+
+.fgs-pill--parent .fgs-pill__sex {
+  width: var(--fgs-pill-avatar);
+  height: var(--fgs-pill-avatar);
+}
+
+.fgs-pill--parent .fgs-pill__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.fgs-pill--parent .fgs-pill__dates {
+  margin-top: 0.12rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  color: var(--fgs-muted);
+}
+
+.fgs-pill__sex {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--fgs-pill-border);
+  border-radius: 50%;
+  background: #f8f8f8;
+}
+
+.fgs-pill__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fgs-pill__sex--m {
+  background: var(--fgs-sex-m);
+}
+
+.fgs-pill__sex--f {
+  background: var(--fgs-sex-f);
+}
+
+.fgs-pill__sex--u {
+  background: #e8e8e8;
+}
+
+.fgs-pill__body {
+  min-width: 0;
+  flex: 1;
+}
+
+.fgs-pill__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fgs-lineage-star {
+  color: #d4a017;
+  font-weight: 700;
+}
+
+.fgs-gp-couple__name .fgs-lineage-star {
+  color: #d4a017;
+  font-weight: 700;
+}
+
+.fgs-lineage-sibling {
+  margin-left: 0.12em;
+  color: #1a5c34;
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fgs-gp-couple__name .fgs-lineage-sibling {
+  color: #1a5c34;
+  font-size: 1.15em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fgs-empty {
+  font-size: 0.75rem;
+  color: var(--fgs-muted);
+  text-align: center;
+}
+
+/* Grandparent couple — single rounded block */
+.fgs-gp-couple {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: var(--fgs-pill-card-width);
+  padding: 0.5rem 0.65rem 0.55rem;
+  border: 1px solid var(--fgs-pill-border);
+  border-radius: var(--fgs-radius);
+  background: var(--fgs-pill-bg);
+}
+
+.fgs-gp-couple__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--fgs-pill-border);
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.fgs-gp-couple__header-left {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  font-weight: 600;
+  color: var(--fgs-ink);
+}
+
+.fgs-gp-couple__id {
+  flex-shrink: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--fgs-muted);
+  text-align: right;
+}
+
+.fgs-gp-couple__people {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.15rem;
+}
+
+.fgs-gp-couple__person {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.fgs-gp-couple__sex {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 1.85rem;
+  height: 1.85rem;
+  border: 1px solid var(--fgs-pill-border);
+  border-radius: 50%;
+  background: #f8f8f8;
+}
+
+.fgs-gp-couple__avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fgs-gp-couple__person-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.fgs-gp-couple__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.fgs-gp-couple__dates {
+  margin-top: 0.08rem;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  color: var(--fgs-muted);
+}
+

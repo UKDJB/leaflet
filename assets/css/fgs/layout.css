@@ -1,0 +1,247 @@
+/* Family group sheet — positioning (flex, grid, connectors). */
+
+.fgs-sheet {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 190mm;
+  max-width: 190mm;
+  min-height: 287mm;
+  margin: 0 auto;
+  padding: 0.75rem 0.75rem 1rem;
+}
+
+.fgs-header {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  column-gap: 1.25rem;
+  row-gap: 0.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.fgs-header__rule {
+  grid-column: 1 / -1;
+  height: 1px;
+  background: var(--fgs-line);
+}
+
+.fgs-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0 0 1rem;
+}
+
+.fgs-couple-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.fgs-upper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fgs-columns,
+.fgs-parent-link__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--fgs-columns-gap);
+  width: 100%;
+}
+
+.fgs-columns {
+  align-items: end;
+}
+
+.fgs-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+}
+
+.fgs-branch > .fgs-gp-couple,
+.fgs-branch > .fgs-pill {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: var(--fgs-pill-card-width);
+}
+
+.fgs-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--fgs-vert-gap);
+  width: 100%;
+}
+
+.fgs-stack--std {
+  max-width: 14.5rem;
+}
+
+/* Shared vertical connector between cards (GP→parent, parent→child, child→child) */
+.fgs-link-v {
+  flex-shrink: 0;
+  align-self: center;
+  width: 1px;
+  height: var(--fgs-vert-gap);
+  background: var(--fgs-line);
+}
+
+/* Father / mother: vertical to shared horizontal, then down to children */
+.fgs-parent-link {
+  width: 100%;
+}
+
+.fgs-parent-link__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fgs-parent-link__h {
+  position: relative;
+  width: 100%;
+  height: 1px;
+}
+
+.fgs-parent-link__h::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc((100% - var(--fgs-columns-gap)) / 4);
+  right: calc((100% - var(--fgs-columns-gap)) / 4);
+  height: 1px;
+  background: var(--fgs-line);
+}
+
+.fgs-children-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.fgs-children-rail {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Children: left/right pairs; spine built per row (ends at last row midpoint) */
+.fgs-children-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: calc(2 * var(--fgs-pill-card-width) + 1.5rem);
+  margin: var(--fgs-vert-gap) auto 0;
+  position: relative;
+}
+
+.fgs-children-spine__down {
+  position: absolute;
+  top: calc(-1 * var(--fgs-vert-gap));
+  left: 50%;
+  width: 1px;
+  height: var(--fgs-vert-gap);
+  background: var(--fgs-line);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.fgs-children-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+}
+
+.fgs-children-pair + .fgs-children-pair {
+  margin-top: var(--fgs-vert-gap);
+}
+
+.fgs-pair-hub {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  align-self: stretch;
+  justify-items: center;
+  width: 1px;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+.fgs-pair-hub__v-up,
+.fgs-pair-hub__v-down {
+  width: 1px;
+  min-height: 0;
+  background: var(--fgs-line);
+}
+
+/* Last row: lower segment is layout-only so spine stops at row midpoint */
+.fgs-pair-hub--last .fgs-pair-hub__v-down {
+  background: transparent;
+}
+
+.fgs-pair-hub__joint {
+  width: 1px;
+  height: 1px;
+  background: var(--fgs-line);
+}
+
+/* Continue spine through gap between pair rows */
+.fgs-pair-hub:not(.fgs-pair-hub--last) .fgs-pair-hub__v-down {
+  margin-bottom: calc(-1 * var(--fgs-vert-gap));
+  padding-bottom: var(--fgs-vert-gap);
+}
+
+.fgs-child-slot {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  z-index: 1;
+  min-width: 0;
+}
+
+.fgs-child-slot--left {
+  justify-content: flex-end;
+}
+
+.fgs-child-slot--right {
+  justify-content: flex-start;
+}
+
+.fgs-child-slot--empty {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.fgs-child-slot .fgs-pill--parent {
+  flex-shrink: 0;
+  width: var(--fgs-pill-card-width);
+  max-width: 100%;
+}
+
+.fgs-child-slot__arm {
+  flex: 1 1 auto;
+  min-width: 0.35rem;
+  height: 1px;
+  background: var(--fgs-line);
+}
+
+@media print {
+  .fgs-sheet {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    padding: 0;
+  }
+}
