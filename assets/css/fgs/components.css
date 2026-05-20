@@ -164,6 +164,24 @@
   line-height: 1;
 }
 
+.fgs-relation-note {
+  margin-top: 0.12rem;
+  min-height: 0.85rem;
+  font-size: 0.62rem;
+  line-height: 1.25;
+  color: var(--fgs-muted);
+  white-space: normal;
+}
+
+.fgs-relation-note--empty {
+  visibility: hidden;
+}
+
+.fgs-gp-couple__person-body .fgs-relation-note {
+  font-size: 0.6rem;
+  min-height: 0.8rem;
+}
+
 .fgs-empty {
   font-size: 0.75rem;
   color: var(--fgs-muted);

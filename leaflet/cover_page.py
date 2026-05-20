@@ -11,6 +11,7 @@ import re
 from pathlib import Path
 
 from leaflet.audit import DEFAULT_ROOT_INDI
+from leaflet.kinship import relationship_label
 from leaflet.gedcom import (
     Family,
     GedcomData,
@@ -92,6 +93,16 @@ def _sex_modifier(sex: str) -> str:
     return "u"
 
 
+def _relation_note_html(data: GedcomData, ego_xref: str, ind: Individual | None) -> str:
+    """Kinship footnote relative to ego; blank slot keeps pill height uniform."""
+    phrase = ""
+    if ind is not None:
+        phrase = relationship_label(data, ego_xref, ind.xref)
+    if phrase:
+        return f'<div class="fgs-relation-note">{_esc(phrase)}</div>'
+    return '<div class="fgs-relation-note fgs-relation-note--empty" aria-hidden="true"></div>'
+
+
 def _person_name_html(
     ind: Individual | None,
     *,
@@ -112,6 +123,8 @@ def _person_name_html(
 def _pill(
     ind: Individual | None,
     *,
+    data: GedcomData,
+    ego_xref: str,
     assets_base: str = ".",
     variant: str = "std",
     direct_line: set[str] | None = None,
@@ -145,6 +158,7 @@ def _pill(
         f'<div class="fgs-pill__body">'
         f'<div class="fgs-pill__name">{_person_name_html(ind, direct_line=line, siblings=sibs)}</div>'
         f'<div class="fgs-pill__dates">{_esc(dates)}</div>'
+        f"{_relation_note_html(data, ego_xref, ind)}"
         f"</div></div>"
     )
 
@@ -207,6 +221,8 @@ def _gp_header_html(
 def _gp_person_row(
     ind: Individual | None,
     *,
+    data: GedcomData,
+    ego_xref: str,
     assets_base: str,
     direct_line: set[str],
     siblings: set[str],
@@ -229,6 +245,7 @@ def _gp_person_row(
         f'<div class="fgs-gp-couple__person-body">'
         f'<div class="fgs-gp-couple__name">{_person_name_html(ind, direct_line=direct_line, siblings=siblings)}</div>'
         f'<div class="fgs-gp-couple__dates">{_esc(dates)}</div>'
+        f"{_relation_note_html(data, ego_xref, ind)}"
         f"</div></div>"
     )
 
@@ -237,6 +254,7 @@ def _gp_couple_block(
     data: GedcomData,
     parent: Individual | None,
     *,
+    ego_xref: str,
     assets_base: str = ".",
     direct_line: set[str] | None = None,
     siblings: set[str] | None = None,
@@ -261,8 +279,8 @@ def _gp_couple_block(
         f'<div class="fgs-gp-couple">'
         f"{header}"
         f'<div class="fgs-gp-couple__people">'
-        f"{_gp_person_row(husb, assets_base=assets_base, direct_line=line, siblings=sibs)}"
-        f"{_gp_person_row(wife, assets_base=assets_base, direct_line=line, siblings=sibs)}"
+        f"{_gp_person_row(husb, data=data, ego_xref=ego_xref, assets_base=assets_base, direct_line=line, siblings=sibs)}"
+        f"{_gp_person_row(wife, data=data, ego_xref=ego_xref, assets_base=assets_base, direct_line=line, siblings=sibs)}"
         f"</div></div>"
     )
 
@@ -304,6 +322,7 @@ def _child_slots(
     children: list[str],
     data: GedcomData,
     *,
+    ego_xref: str,
     assets_base: str = ".",
     direct_line: set[str] | None = None,
     siblings: set[str] | None = None,
@@ -322,6 +341,8 @@ def _child_slots(
             left = _child_slot_html(
                 _pill(
                     data.individuals.get(left_xref),
+                    data=data,
+                    ego_xref=ego_xref,
                     assets_base=assets_base,
                     variant="parent",
                     direct_line=line,
@@ -335,6 +356,8 @@ def _child_slots(
             right = _child_slot_html(
                 _pill(
                     data.individuals.get(right_xref),
+                    data=data,
+                    ego_xref=ego_xref,
                     assets_base=assets_base,
                     variant="parent",
                     direct_line=line,
@@ -391,13 +414,25 @@ def build_family_cover_html(
         "__PAGE_TITLE__": _esc(f"{heading} — family group sheet"),
         "__HEADER_TITLE__": _header_title(fam, p1, p2, data),
         "__P1_GP_COUPLE__": _gp_couple_block(
-            data, p1, assets_base=assets_base, direct_line=direct_line, siblings=siblings
+            data,
+            p1,
+            ego_xref=root_indi,
+            assets_base=assets_base,
+            direct_line=direct_line,
+            siblings=siblings,
         ),
         "__P2_GP_COUPLE__": _gp_couple_block(
-            data, p2, assets_base=assets_base, direct_line=direct_line, siblings=siblings
+            data,
+            p2,
+            ego_xref=root_indi,
+            assets_base=assets_base,
+            direct_line=direct_line,
+            siblings=siblings,
         ),
         "__P1_PARENT__": _pill(
             p1,
+            data=data,
+            ego_xref=root_indi,
             assets_base=assets_base,
             variant="parent",
             direct_line=direct_line,
@@ -405,6 +440,8 @@ def build_family_cover_html(
         ),
         "__P2_PARENT__": _pill(
             p2,
+            data=data,
+            ego_xref=root_indi,
             assets_base=assets_base,
             variant="parent",
             direct_line=direct_line,
@@ -413,6 +450,7 @@ def build_family_cover_html(
         "__CHILD_SLOTS__": _child_slots(
             fam.children,
             data,
+            ego_xref=root_indi,
             assets_base=assets_base,
             direct_line=direct_line,
             siblings=siblings,
